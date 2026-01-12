@@ -42,6 +42,20 @@ def cat_shock(face_landmark_points):
     )
 
 
+def cat_glare(face_landmark_points):
+    l_top = face_landmark_points.landmark[159]
+    l_bot = face_landmark_points.landmark[145]
+    
+    r_top = face_landmark_points.landmark[386]
+    r_bot = face_landmark_points.landmark[374]
+
+    eye_squint = (
+        abs(l_top.y - l_bot.y) +
+        abs(r_top.y - r_bot.y)
+    ) / 2.0
+
+    return eye_squint < 0.021
+
 
 def main():
     while True:
