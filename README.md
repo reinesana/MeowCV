@@ -108,7 +108,12 @@ This project is intentionally lightweight and heuristic-based, so experimentatio
    
 5. Push your branch and open a pull request
 
+---
 
+## License
+
+This project is licensed under the MIT License.  
+See the [LICENSE](LICENSE) file for details.
 
 ---
 
