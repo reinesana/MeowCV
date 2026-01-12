@@ -88,7 +88,7 @@ def main():
             for lm in face_landmark_points.landmark:
                 x = int(lm.x * width)
                 y = int(lm.y * height)
-                cv2.circle(image, (x, y), 1, (0, 255, 0), -1)
+                cv2.circle(image, (x, y), 1, (0, 100, 0), -1)
             
         
         cv2.imshow('Face Detection', image)
