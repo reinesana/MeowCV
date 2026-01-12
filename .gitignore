@@ -1,5 +1,4 @@
 *.pyd
-*.egg-info/
 .pytest_cache/
 
 # Build

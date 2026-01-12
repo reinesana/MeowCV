@@ -26,6 +26,21 @@ def cat_tongue(face_landmark_points):
 
     return mouth_open > 0.04
 
+def cat_shock(face_landmark_points):
+    l_top = face_landmark_points.landmark[159]
+    l_bot = face_landmark_points.landmark[145]
+    r_top = face_landmark_points.landmark[386]
+    r_bot = face_landmark_points.landmark[374]
+
+    eye_opening = (
+        abs(l_top.y - l_bot.y) +
+        abs(r_top.y - r_bot.y)
+    ) / 2.0
+
+    return (
+        eye_opening > 0.03
+    )
+
 
 
 def main():
