@@ -22,7 +22,17 @@ cam = cv2.VideoCapture(0)
 # Thresholds 
 eye_opening_threshold = 0.025
 mouth_open_threshold = 0.03
-squinting_threshold = 0.018
+squinting_threshold = 0.019
+disgust_threshold = 0.06
+
+def cat_disgust(face_landmark_points):
+    # Nose tip (4) and Upper Lip (0)
+    nose_tip = face_landmark_points.landmark[4]
+    upper_lip = face_landmark_points.landmark[0]
+
+    nose_mouth_dist = abs(nose_tip.y - upper_lip.y)
+
+    return nose_mouth_dist < disgust_threshold
 
 def cat_shock(face_landmark_points):
     l_top = face_landmark_points.landmark[159]
@@ -76,6 +86,8 @@ def main():
             face_landmark_points = face_landmark_points[0]
             if cat_tongue(face_landmark_points):
                 cat_image = "assets/cat-tongue.jpeg"
+            elif cat_disgust(face_landmark_points):
+                cat_image = "assets/cat-disgust.jpeg"
             elif cat_shock(face_landmark_points):
                 cat_image = "assets/cat-shock.jpeg"
             elif cat_glare(face_landmark_points):
