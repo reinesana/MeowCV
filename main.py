@@ -59,6 +59,12 @@ def cat_glare(face_landmark_points):
 
 
 def main():
+    # Debounce setup
+    current_cat_image = "assets/larry.jpeg"
+    pending_cat_image = None
+    debounce_counter = 0
+    DEBOUNCE_THRESHOLD = 5  # Nombre de frames pour valider le changement
+
     while True:
         ret, image = cam.read()
         if not ret:
@@ -71,17 +77,17 @@ def main():
         processed_image = face_mesh.process(rgb_image)
         face_landmark_points = processed_image.multi_face_landmarks
 
-        cat_image = "assets/cat-shock.jpeg"
+        detected_cat_image = "assets/cat-shock.jpeg"
         if face_landmark_points:
             face_landmark_points = face_landmark_points[0]
             if cat_tongue(face_landmark_points):
-                cat_image = "assets/cat-tongue.jpeg"
+                detected_cat_image = "assets/cat-tongue.jpeg"
             elif cat_shock(face_landmark_points):
-                cat_image = "assets/cat-shock.jpeg"
+                detected_cat_image = "assets/cat-shock.jpeg"
             elif cat_glare(face_landmark_points):
-                cat_image = "assets/cat-glare.jpeg"
+                detected_cat_image = "assets/cat-glare.jpeg"
             else:
-                cat_image = "assets/larry.jpeg"
+                detected_cat_image = "assets/larry.jpeg"
         
 
             height, width = image.shape[:2]
@@ -91,16 +97,26 @@ def main():
                 cv2.circle(image, (x, y), 1, (0, 100, 0), -1)
             
         
+        # Debounce Logic
+        if detected_cat_image == pending_cat_image:
+            debounce_counter += 1
+        else:
+            pending_cat_image = detected_cat_image
+            debounce_counter = 0
+
+        if debounce_counter > DEBOUNCE_THRESHOLD:
+            current_cat_image = detected_cat_image
+
         cv2.imshow('Face Detection', image)
 
         # Cat Display
-        cat = cv2.imread(cat_image)
+        cat = cv2.imread(current_cat_image)
         if cat is not None:
             cat = cv2.resize(cat, (640, 480))
             cv2.imshow("Cat Image", cat)
         else:
             blank = image * 0
-            cv2.putText(blank, f"Missing: {cat_image}", (30, 60),
+            cv2.putText(blank, f"Missing: {current_cat_image}", (30, 60),
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
             cv2.imshow("Cat Image", blank)
 
