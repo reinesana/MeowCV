@@ -14,6 +14,7 @@ Using your webcam and the mediapipe library, the system tracks key facial landma
 1. Shock → mouth opens wide
 2. Tongue → mouth open without triggering shock
 3. Glare → eye squint
+4. Disgust → nose scrunches up
 
 **Note**: This program is designed to be fun and easy to extend — perfect for experimenting with facial heuristics and expression detection.
 
@@ -77,6 +78,15 @@ Measures how close the upper and lower eyelids are and controls when the side-ey
 ```python
 squinting_threshold = 0.016  # very strict glare
 squinting_threshold = 0.020  # softer glare
+```
+
+### disgust_threshold — Disgust Detection
+Measures the vertical distance between the nose tip and the upper lip to detect a nose scrunch or sneer.
+- Decrease this value → disgust triggers only on very strong scrunches
+- Increase this value → disgust triggers more easily
+```python
+disgust_threshold = 0.045  # requires a strong nose scrunch
+disgust_threshold = 0.065  # easier disgust trigger
 ```
 
 ---
