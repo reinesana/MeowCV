@@ -60,20 +60,21 @@ def cat_glare(face_landmark_points):
 
 def main():
     while True:
-        ret, image = cam.read()
+        ret, image = cam.read() #grabs frame from webcam
         if not ret:
             break
 
-        image = cv2.flip(image, 1)
+        image = cv2.flip(image, 1) #acts like mirror
         height, width, depth = image.shape
+        print(height, width, depth)
 
-        rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) #converts BGR to RGB
         processed_image = face_mesh.process(rgb_image)
         face_landmark_points = processed_image.multi_face_landmarks
 
-        cat_image = "assets/cat-shock.jpeg"
+        cat_image = "assets/cat-shock.jpeg" #default image
         if face_landmark_points:
-            face_landmark_points = face_landmark_points[0]
+            face_landmark_points = face_landmark_points[0] #if face detected... Takes the first detected face
             if cat_tongue(face_landmark_points):
                 cat_image = "assets/cat-tongue.jpeg"
             elif cat_shock(face_landmark_points):
