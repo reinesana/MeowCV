@@ -36,7 +36,7 @@ git clone https://github.com/reinesana/MeowCV.git
 ```
 
 ### 2. Install dependencies
-Make sure you have **Python 3.9+** installed on your system.
+Make sure you have **Python 3.9 – 3.11** installed on your system. This project was tested with **Python 3.11.7** and `mediapipe==0.10.14`.
 
 ```bash
 pip install -r requirements.txt
@@ -110,11 +110,6 @@ This project is intentionally lightweight and heuristic-based, so experimentatio
 
 ---
 
-## License
-
-This project is licensed under the MIT License.  
-See the [LICENSE](LICENSE) file for details.
-
----
-
 Have fun 🐱💻
+
+MIT License © 2026 Shana Nursoo  
