@@ -24,3 +24,6 @@ ENV/
 # Logs
 logs/
 *.log
+
+.my-readme.md
+test.py
