@@ -26,3 +26,4 @@ logs/
 *.log
 
 .my-readme.md
+test.py
